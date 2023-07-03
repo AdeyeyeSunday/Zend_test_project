@@ -1,0 +1,63 @@
+<?php
+ // module/Album/view/album/album/index.phtml:
+
+ $title = 'My albums';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('album', array('action'=>'add'));?>">  <button class="btn btn-primary  btn-sm">Add new album</button> </a>
+ </p>
+
+ <table class="table">
+ <tr>
+     <th>Title</th>
+     <th>Artist</th>
+   <!-- //  <th>View</th> -->
+     <th>Action</th>
+ </tr>
+ <?php foreach ($this->albums as $album) : ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($album->title);?></td>
+     <td><?php echo $this->escapeHtml($album->artist);?></td>
+     <td>
+     <button type="button" class="btn btn-primary  btn-sm" data-toggle="modal" data-target="#exampleModal<?php echo $this->escapeHtml($album->id);?>">
+ View Information
+</button>
+         <a href="<?php echo $this->url('album',
+             array('action'=>'edit', 'id' => $album->id));?>"><button class="btn btn-info  btn-sm">Edit</button></a>
+         <a href="<?php echo $this->url('album',
+             array('action'=>'delete', 'id' => $album->id));?>"><button class="btn btn-danger  btn-sm">Delete</button></a>
+     </td>
+ </tr>
+
+ 
+ <!-- Modal -->
+<div class="modal fade" id="exampleModal<?php echo $this->escapeHtml($album->id);?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">My album</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <?php echo $this->escapeHtml($album->title);?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <?php endforeach; ?>
+ </table>
+
+
+ <!-- delete model start from here  -->
+<!-- Button trigger modal -->
+
+
+
+<!-- delete model end here -->
